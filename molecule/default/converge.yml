@@ -5,7 +5,7 @@
     - name: Install nginx
       package:
         name: nginx
-        state: installed
+        state: present
     - name: Enable nginx
       systemd:
         name: nginx
