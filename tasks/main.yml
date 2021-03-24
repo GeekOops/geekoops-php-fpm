@@ -41,7 +41,7 @@
     mode: 0644
   notify: restart php-fpm
   tags: ['php-fpm']
-  when: configure_php_www_conf == true
+  when: configure_php_fpm == true
 
 - name: Ensure php-fpm is enabled
   systemd:

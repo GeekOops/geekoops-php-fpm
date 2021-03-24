@@ -4,7 +4,6 @@
 configure_php_ini: true
 configure_php_fpm: true
 enable_php_fpm: true
-configure_php_www_conf: true
 
 # memcache
 apcu_enable: false
