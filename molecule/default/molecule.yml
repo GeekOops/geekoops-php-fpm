@@ -1,0 +1,35 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: leap15_2
+    image: grisu48/leap-ansible
+    pre_build_image: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    capabilities:
+      - SYS_ADMIN
+    tmpfs:
+      - /run
+      - /tmp
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      leap15_2:
+        www_dir: "/srv/www/htdocs"
+        vhosts_dir: "/etc/nginx/vhosts.d"
+        phpgroup: www
+        phpuser: wwwrun
+        nginxuser: nginx
+        nginxgroup: nginx
+        deploy_nginx_config: true
+verifier:
+  name: testinfra
+  lint:
+    name: flake8
+lint: |
+  set -e
+  yamllint .
