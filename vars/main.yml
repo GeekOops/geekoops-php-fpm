@@ -1,0 +1,6 @@
+---
+# vars file for geekoops-php-fpm
+
+# If set, those php user and group variables will be used for php-fpm related stuff
+php_user: "wwwrun"
+php_group: "www"

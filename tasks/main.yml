@@ -1,0 +1,52 @@
+---
+# tasks file for geekoops-php-fpm
+
+- name: include distribution specific vars
+  include_vars: "{{ ansible_distribution }}_{{ ansible_distribution_version }}.yml"
+
+- name: Ensure php packages are installed
+  package:
+    name: "{{ packages }}"
+    state: present
+  tags: ['php', 'php-fpm']
+
+- name: Ensure php.ini is configured
+  template:
+    src: php.ini.j2
+    dest: "{{php_ini}}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+  tags: ['php', 'php-fpm']
+  when: configure_php_ini == true
+
+- name: Ensure php-fpm.conf is configured
+  template:
+    src: php-fpm.conf.j2
+    dest: "{{php_fpm_conf}}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+  tags: ['php-fpm']
+  when: configure_php_fpm == true
+
+- name: Ensure www.conf is configured
+  template:
+    src: www.conf.j2
+    dest: "{{php_www_conf}}"
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart php-fpm
+  tags: ['php-fpm']
+  when: configure_php_www_conf == true
+
+- name: Ensure php-fpm is enabled
+  systemd:
+    name: php-fpm
+    state: started
+    enabled: yes
+  tags: ['php-fpm']
+  when: enable_php_fpm == true

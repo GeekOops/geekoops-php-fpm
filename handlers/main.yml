@@ -1,0 +1,8 @@
+---
+# handlers file for geekoops-php-fpm
+
+
+- name: restart php-fpm
+  service:
+    name: php-fpm
+    state: restarted

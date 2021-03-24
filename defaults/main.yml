@@ -1,0 +1,17 @@
+---
+# defaults file for geekoops-php-fpm
+
+configure_php_ini: true
+configure_php_fpm: true
+enable_php_fpm: true
+configure_php_www_conf: true
+
+# memcache
+apcu_enable: false
+apcu_shm_size: "32M"
+
+# PHP settings
+php_memlimit: "128M"
+php_uploads: "On"
+php_maxuploadsize: "256M"
+php_maxuploads: "20"
