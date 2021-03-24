@@ -1,0 +1,61 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Install nginx
+      package:
+        name: nginx
+        state: installed
+    - name: Enable nginx
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+    - name: "Include geekoops-php-fpm"
+      include_role:
+        name: "geekoops-php-fpm"
+    ## Setup test enviroment
+    # We setup phpinfo.php and configure nginx to use php for *.php files
+    - name: Deploy phpinfo script
+      copy:
+        content: |
+          <?php phpinfo(); phpinfo(INFO_MODULES); ?>
+        dest: "{{www_dir}}/phpinfo.php"
+        group: "{{phpgroup}}"
+        owner: "{{phpuser}}"
+        mode: 0754
+      register: deployed
+    - name: Deploy nginx configuration
+      copy:
+        content: |
+              server {
+                  listen 80 default_server;
+                  listen [::]:80 default_server;
+                  root {{ www_dir }};
+                  index index.php index.html index.htm;
+                  location / {
+                      try_files $uri $uri/ =404;
+                  }
+                  location ~ \.php$ {
+                      fastcgi_pass   unix:/var/run/php-fpm.sock;
+                      fastcgi_index  index.php;
+                      fastcgi_param  SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                      include        fastcgi_params;
+                  }
+              }
+        dest: "{{vhosts_dir}}/default.conf"
+        owner: root
+        group: root
+        mode: 0644
+      when: deployed.changed and deploy_nginx_config == true
+    - name: Ensure nginx is in php group
+      user:
+        name: "{{nginxuser}}"
+        groups: ["{{phpgroup}}"]
+        append: yes
+    # Restart of nginx is required for them to have the new configuration
+    - name: Restart nginx
+      systemd:
+        name: nginx
+        state: restarted
+      when: deployed.changed
