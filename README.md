@@ -1,3 +1,5 @@
+[![Test deployment](https://github.com/GeekOops/geekoops-php-fpm/actions/workflows/CI.yml/badge.svg)](https://github.com/GeekOops/geekoops-php-fpm/actions/workflows/CI.yml)
+
 # geekoops-php-fpm
 
 Configurable ansible role for setting up `php-fpm` for a webserver (e.g. [nginx](https://github.com/GeekOops/geekoops-nginx)). It is intended to use as basis for many PHP projects like [Mediawiki](https://www.mediawiki.org/), [Nextcloud](https://nextcloud.com) or [Lychee](https://lycheeorg.github.io/).
