@@ -35,7 +35,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 A bit more extended example for our `cuddlefish` server:
 
-    - hosts: cuddlefish
+    - hosts: jellyfish
       roles:
          - role: geekoops-php-fpm
             vars:
