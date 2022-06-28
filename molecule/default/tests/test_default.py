@@ -9,7 +9,6 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(os.environ['MOLEC
  
 def test_phpinfo(host):
 	cmd = host.run("curl -v http://127.0.0.1/phpinfo.php")
-	print(cmd.stdout)
 	assert 'HTTP/1.1 200 OK' in cmd.stderr
 	assert "PHP Version" in cmd.stdout
 	assert "php-fpm" in cmd.stdout
