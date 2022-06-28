@@ -14,3 +14,33 @@ php_memlimit: "128M"
 php_uploads: "On"
 php_maxuploadsize: "256M"
 php_maxuploads: "20"
+
+php_socket: "/var/run/php-fpm/php-fpm.sock"
+
+php_allowed_clients: ""
+php_niceness: ""
+php_pm: "dynamic"
+php_max_children: 10
+php_start_servers: 2
+php_min_spare_servers: 2
+php_max_spare_servers: 5
+php_process_idle_timeout: "10s"
+php_max_requests: ""
+
+php_chroot: ""
+php_limit_extensions: ".php .php3 .php4 .php5 .php7"
+
+php_env_PATH: "/usr/local/bin:/usr/bin:/bin"
+
+php_open_basedir: ""
+php_disable_functions: ""
+php_disable_classes: ""
+php_realpath_cache_size: ""
+php_realpath_cache_ttl: ""
+php_expose: true
+php_max_execution_time: 0
+php_max_input_time: 60
+php_post_max_size: "8M"
+php_log_level: "error"
+php_max_processes: 128
+php_events_mechanism: "epoll"

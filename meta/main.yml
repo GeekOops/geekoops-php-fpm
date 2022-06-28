@@ -1,6 +1,8 @@
 ---
 galaxy_info:
   author: Felix Niederwanger
+  role_name: php_fpm
+  namespace: geekoops
   description: Install php-fpm
   company: SUSE
   issue_tracker_url: https://github.com/GeekOops/geekoops-php-fpm/issues
@@ -9,11 +11,11 @@ galaxy_info:
 
   min_ansible_version: 2.9
 
-  # https://galaxy.ansible.com/api/v1/platforms/
   platforms:
     - name: opensuse
       versions:
-        - 15.2
+        - 15.3
+        - 15.4
 
   galaxy_tags: ['webserver', 'php', 'php-fpm']
 

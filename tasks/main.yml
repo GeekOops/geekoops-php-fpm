@@ -47,6 +47,6 @@
   systemd:
     name: php-fpm
     state: started
-    enabled: yes
+    enabled: true
   tags: ['php-fpm']
   when: enable_php_fpm == true
