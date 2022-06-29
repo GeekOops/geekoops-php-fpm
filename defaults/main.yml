@@ -15,7 +15,7 @@ php_uploads: "On"
 php_maxuploadsize: "256M"
 php_maxuploads: "20"
 
-php_socket: "/var/run/php-fpm/php-fpm.sock"
+php_socket: "/run/php-fpm/php-fpm.sock"
 
 php_allowed_clients: ""
 php_niceness: ""
