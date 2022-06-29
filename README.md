@@ -24,7 +24,7 @@ Due to the very different php configuration on Debian/Ubuntu I'm not planning to
 | `php_uploads` | Enable PHP uploads | `On` |
 | `php_maxuploadsize` | Max upload size | `256M` |
 | `php_maxuploads` | Max uploads in a request | `20` |
-| `php_socket` | Socket for php to listen on | `/var/run/php-fpm.sock` |
+| `php_socket` | Socket for php to listen on | `/run/php-fpm/php-fpm.sock` |
 | `php_allowed_clients` | List of addresses (IPv4/IPv6) allowed to connect if `php_socket` is a network address | |
 | `php_niceness` | Set the nice priority for the pool processes | not set |
 | `php_pm` | Process manager (static, dynamic, ondemand) | dynamic |
@@ -61,7 +61,7 @@ Including an example of how to use your role (for instance, with variables passe
 
 A bit more extended example for our `cuddlefish` server:
 
-    - hosts: jellyfish
+    - hosts: cuddlefish
       roles:
          - role: geekoops-php-fpm
             vars:
@@ -75,16 +75,34 @@ A bit more extended example for our `cuddlefish` server:
 
 MIT
 
-## Author Information
 
-phoenix
+# Troubleshooting
 
-Have a lot of fun!
+For your convenience we list some known configuration issues when integrating this role with other roles or with certain systems and how you can resolve them.
 
-# Development
+## unix socket: Permission denied
 
-## Add githooks
+Typical symptoms of this issues are error in your `nginx` log file like the following:
 
-This repository ships pre-commit git hooks that will check the yaml syntax. To configure them do
+    connect() to unix:/run/php-fpm/php-fpm.sock failed (13: Permission denied) while connecting to upstream, client: 192.168.122.1, server: jellyfish, request: "GET /phpinfo.php HTTP/1.1", upstream: "fastcgi://unix:/run/php-fpm/php-fpm.sock:", host: "leap15-4"
 
-    git config --local core.hooksPath .githooks/
+This typically means, that your `nginx` webserver has no access to the `php-fpm` socket located in `/run/php-fpm/php-fpm.sock`.
+
+**Solution**
+
+* Ensure that your webserver (e.g. `nginx`) has access to the unix socket. Typically adding `nginx` to the `www` group resolves this issue.
+
+## phpinfo.php returns "Access denied."
+
+A typical request looks like the following:
+
+    $ curl http://leap15-4/phpinfo.php
+    Access denied.
+
+In most cases this is an AppArmor or SELinux issue.
+
+First try to set the `php-fpm` AppArmor profile to complain and check if this resolves the issue:
+
+    # aa-complain /etc/apparmor.d/php-fpm
+
+If so, you can use the `yast apparmor` module of YaST to modify the `php-fpm` module to allow access to your php files. Then you can set AppArmor back to enforce.
