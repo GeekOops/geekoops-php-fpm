@@ -32,16 +32,37 @@
   tags: ['php-fpm']
   when: configure_php_fpm == true
 
-- name: Ensure www.conf is configured
+- name: Ensure {{php_fpm_pool}}.conf is configured
   template:
     src: www.conf.j2
-    dest: "{{php_www_conf}}"
+    dest: "{{php_pool_conf_path}}/{{php_fpm_pool}}.conf"
     owner: root
     group: root
     mode: 0644
   notify: restart php-fpm
   tags: ['php-fpm']
   when: configure_php_fpm == true
+
+- name: Ensure AppArmor knows about our new config file, the socket, and some log files it tries to create
+  ansible.builtin.blockinfile:
+    path: /etc/apparmor.d/local/php-fpm
+    state: present
+    block: |
+      /var/log/php-fpm/{{php_fpm_pool}}.access.log rw,
+      /var/log/php-fpm/{{php_fpm_pool}}.log.slow rw,
+      /var/log/{{php_fpm_pool}}.log rw,
+      @{run}/php{,-fpm}/{{php_fpm_pool}}.pid rw,
+      @{run}/{{php_fpm_pool}}.pid rw,
+      @{run}/php{,-fpm}/{{php_fpm_pool}}.sock rwlk,
+
+- name: create log directory for php-fpm
+  ansible.builtin.file:
+    path: "/var/log/php-fpm/"
+    state: directory
+    mode: '0755'
+    group: 'www'
+    owner: 'wwwrun'
+
 
 - name: Ensure php-fpm is enabled
   systemd:

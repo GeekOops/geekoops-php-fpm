@@ -2,7 +2,7 @@
 ; ## This file is managed by ansible. Local changes will be overwritten       ##
 ; ##############################################################################
 
-[www]
+[{{ php_fpm_pool }}]
 
 ; Unix user/group of processes
 
@@ -11,7 +11,7 @@ user = {{ php_user }}
 group = {{ php_group }}
 {% endif %}
 
-listen = {{ php_socket }}
+listen = {{ php_socket_path }}/$pool.sock
 listen.backlog = 511
 
 ; Set permissions for unix socket, if one is used

@@ -15,9 +15,10 @@
 ;;;;;;;;;;;;;;;;;;
 
 [global]
-pid = run/php-fpm/php-fpm.pid
+pid = run/php-fpm.pid
 error_log = log/php-fpm.log
 syslog.facility = daemon
+syslog.ident = php-fpm
 log_level = {{ php_log_level }}
 
 ;emergency_restart_threshold = 0
@@ -47,4 +48,4 @@ systemd_interval = 10
 ; Pool Definitions ;
 ;;;;;;;;;;;;;;;;;;;;
 
-include=/etc/php7/fpm/php-fpm.d/*.conf
+include=/etc/{{ php_ver }}/fpm/php-fpm.d/*.conf
