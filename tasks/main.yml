@@ -64,6 +64,11 @@
     group: 'www'
     owner: 'wwwrun'
 
+- name: Ensure AppArmor is reloaded
+  systemd:
+    name: apparmor
+    state: restarted
+    enabled: true
 
 - name: Ensure php-fpm is enabled
   systemd:
