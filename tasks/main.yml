@@ -46,6 +46,7 @@
 - name: Ensure AppArmor knows about our new config file, the socket, and some log files it tries to create
   ansible.builtin.blockinfile:
     path: /etc/apparmor.d/local/php-fpm
+    marker: "# {mark} ANSIBLE MANAGED BLOCK {{php_fpm_pool}}"
     state: present
     block: |
       /var/log/php-fpm/{{php_fpm_pool}}.access.log rw,
