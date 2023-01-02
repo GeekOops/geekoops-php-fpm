@@ -5,6 +5,9 @@ configure_php_ini: true
 configure_php_fpm: true
 enable_php_fpm: true
 
+# The pool to configure
+php_fpm_pool: "www"
+
 # memcache
 apcu_enable: false
 apcu_shm_size: "32M"
@@ -15,7 +18,7 @@ php_uploads: "On"
 php_maxuploadsize: "256M"
 php_maxuploads: "20"
 
-php_socket: "/run/php-fpm/php-fpm.sock"
+php_socket_path: "/run/php-fpm/"
 
 php_allowed_clients: ""
 php_niceness: ""
@@ -28,7 +31,7 @@ php_process_idle_timeout: "10s"
 php_max_requests: ""
 
 php_chroot: ""
-php_limit_extensions: ".php .php3 .php4 .php5 .php7"
+php_limit_extensions: "{{ '.php .php3 .php4 .php5 .php7 .php8' if php_ver == 'php8' else  '.php .php3 .php4 .php5 .php7' }}"
 
 php_env_PATH: "/usr/local/bin:/usr/bin:/bin"
 

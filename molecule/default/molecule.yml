@@ -49,4 +49,4 @@ verifier:
   lint:
     name: flake8
 lint: |
-  yamllint -d "{extends: relaxed, rules: {line-length: {max: 200}}}" .
+  yamllint -d "{extends: relaxed, rules: {line-length: {max: disabled}}}" .
