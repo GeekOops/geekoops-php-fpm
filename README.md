@@ -37,6 +37,7 @@ Due to the very different php configuration on Debian/Ubuntu I'm not planning to
 | `php_chroot` | If set, chroot to this directory as start. If set, you might also need to set `php_chdir = /` |  |
 | `php_limit_extensions` | Limit the extension that php-fpm will be parsing | `.php .php3 .php4 .php5 .php7` |
 | `php_env_PATH` | Set the `PATH` variable for php-fpm | `/usr/local/bin:/usr/bin:/bin` |
+| `php_env_tmp` | Set the tmp directory for php-fpm | `/tmp` |
 | `php_open_basedir` | If set, this limits all file operations to the defined directory and below |  |
 | `php_disable_functions` | Allows you to disable certain function |  |
 | `php_disable_classes` | Allows you to disable certain function |  |

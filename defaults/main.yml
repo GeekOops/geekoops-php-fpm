@@ -34,7 +34,7 @@ php_chroot: ""
 php_limit_extensions: "{{ '.php .php3 .php4 .php5 .php7 .php8' if php_ver == 'php8' else  '.php .php3 .php4 .php5 .php7' }}"
 
 php_env_PATH: "/usr/local/bin:/usr/bin:/bin"
-
+php_env_tmp: "/tmp"
 php_open_basedir: ""
 php_disable_functions: ""
 php_disable_classes: ""

@@ -90,9 +90,9 @@ security.limit_extensions = {{ php_limit_extensions }}
 ; the current environment.
 ; Default Value: clean env
 env[PATH] = {{ php_env_PATH }}
-env[TMP] = /tmp
-env[TMPDIR] = /tmp
-env[TEMP] = /tmp
+env[TMP] = {{ php_env_tmp }}
+env[TMPDIR] = {{ php_env_tmp }}
+env[TEMP] = {{ php_env_tmp }}
 
 ; Additional php.ini defines, specific to this pool of workers. These settings
 ; overwrite the values previously defined in the php.ini. The directives are the
