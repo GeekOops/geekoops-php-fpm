@@ -6,7 +6,7 @@
 php_ver: "php8"
 
 # Rich set of packages, intended to cover most use cases (e.g. Mediawiki, Nextcloud)
-packages: ['{{ php_ver }}', '{{ php_ver }}-fpm', '{{ php_ver }}-gd', '{{ php_ver }}-gettext', '{{ php_ver }}-mbstring', '{{ php_ver }}-mysql', '{{ php_ver }}-intl', '{{ php_ver }}-mbstring', '{{ php_ver }}-zip', '{{ php_ver }}-sqlite', '{{ php_ver }}-bz2', '{{ php_ver }}-ctype', '{{ php_ver }}-iconv', '{{ php_ver }}-fileinfo', '{{ php_ver }}-dom', '{{ php_ver }}-openssl', '{{ php_ver }}-xmlreader', '{{ php_ver }}-xmlwriter', '{{ php_ver }}-curl', '{{ php_ver }}-posix', '{{ php_ver }}-imagick', '{{ php_ver }}-opcache', '{{ php_ver }}-exif']
+packages: ['{{ php_ver }}', '{{ php_ver }}-fpm', '{{ php_ver }}-cli', '{{ php_ver }}-gd', '{{ php_ver }}-gettext', '{{ php_ver }}-mbstring', '{{ php_ver }}-mysql', '{{ php_ver }}-intl', '{{ php_ver }}-mbstring', '{{ php_ver }}-zip', '{{ php_ver }}-sqlite', '{{ php_ver }}-bz2', '{{ php_ver }}-ctype', '{{ php_ver }}-iconv', '{{ php_ver }}-fileinfo', '{{ php_ver }}-dom', '{{ php_ver }}-openssl', '{{ php_ver }}-xmlreader', '{{ php_ver }}-xmlwriter', '{{ php_ver }}-curl', '{{ php_ver }}-posix', '{{ php_ver }}-imagick', '{{ php_ver }}-opcache', '{{ php_ver }}-exif']
 
 ## OS-Specific directories
 
