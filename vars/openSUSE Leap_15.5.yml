@@ -1,0 +1,18 @@
+---
+# openSUSE Leap 15.5 specific veriables
+
+## Software packages
+# php version
+php_ver: "php8"
+
+# Rich set of packages, intended to cover most use cases (e.g. Mediawiki, Nextcloud)
+packages: ['{{ php_ver }}', '{{ php_ver }}-cli', '{{ php_ver }}-fpm', '{{ php_ver }}-gd', '{{ php_ver }}-gettext', '{{ php_ver }}-mbstring', '{{ php_ver }}-mysql', '{{ php_ver }}-intl', '{{ php_ver }}-mbstring', '{{ php_ver }}-zip', '{{ php_ver }}-sqlite', '{{ php_ver }}-bz2', '{{ php_ver }}-ctype', '{{ php_ver }}-iconv', '{{ php_ver }}-fileinfo', '{{ php_ver }}-dom', '{{ php_ver }}-openssl', '{{ php_ver }}-xmlreader', '{{ php_ver }}-xmlwriter', '{{ php_ver }}-curl', '{{ php_ver }}-posix', '{{ php_ver }}-opcache', '{{ php_ver }}-exif']
+## Currently disabled packages because not yet available:
+# '{{ php_ver }}-imagick'
+
+## OS-Specific directories
+
+php_ini: "/etc/{{ php_ver }}/cli/php.ini"
+php_fpm_conf: "/etc/{{ php_ver }}/fpm/php-fpm.conf"
+php_pool_conf_path: "/etc/{{ php_ver }}/fpm/php-fpm.d/"
+php_chdir: "/srv/www"
