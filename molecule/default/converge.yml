@@ -15,6 +15,16 @@
       include_role:
         name: "geekoops-php-fpm"
     ## Setup test enviroment
+    # Smoke test for nginx
+    - name: Deploy index.html
+      copy:
+        content: |
+          This page is a stub.
+        dest: "{{www_dir}}/index.html"
+        group: "root"
+        owner: "root"
+        mode: 0644
+      register: deployed
     # We setup phpinfo.php and configure nginx to use php for *.php files
     - name: Deploy phpinfo script
       copy:
@@ -31,13 +41,13 @@
               server {
                   listen 80 default_server;
                   listen [::]:80 default_server;
-                  root {{ www_dir }};
-                  index index.php index.html index.htm;
+                  root "{{ www_dir }}";
+                  index index.html index.htm;
                   location / {
                       try_files $uri $uri/ =404;
                   }
                   location ~ \.php$ {
-                      fastcgi_pass   unix:/run/php-fpm/php-fpm.sock;
+                      fastcgi_pass   unix:/run/php-fpm/www.sock;
                       fastcgi_index  index.php;
                       fastcgi_param  SCRIPT_FILENAME $request_filename;
                       include        fastcgi_params;
