@@ -4,6 +4,8 @@
 - name: include distribution specific vars
   include_vars: "{{ ansible_distribution }}_{{ ansible_distribution_version }}.yml"
 
+## Install and configure php ###################################################
+
 - name: Ensure php packages are installed
   package:
     name: "{{ packages }}"
@@ -43,32 +45,21 @@
   tags: ['php-fpm']
   when: configure_php_fpm == true
 
-- name: Ensure AppArmor knows about our new config file, the socket, and some log files it tries to create
-  ansible.builtin.blockinfile:
-    path: /etc/apparmor.d/local/php-fpm
-    marker: "# {mark} ANSIBLE MANAGED BLOCK {{php_fpm_pool}}"
-    state: present
-    block: |
-      /var/log/php-fpm/{{php_fpm_pool}}.access.log rw,
-      /var/log/php-fpm/{{php_fpm_pool}}.log.slow rw,
-      /var/log/{{php_fpm_pool}}.log rw,
-      @{run}/php{,-fpm}/{{php_fpm_pool}}.pid rw,
-      @{run}/{{php_fpm_pool}}.pid rw,
-      @{run}/php{,-fpm}/{{php_fpm_pool}}.sock rwlk,
-
-- name: create log directory for php-fpm
+- name: Create log directory for php-fpm
   ansible.builtin.file:
     path: "/var/log/php-fpm/"
     state: directory
     mode: '0755'
     group: 'www'
     owner: 'wwwrun'
+  tags: ['php-fpm']
 
-- name: Ensure AppArmor is reloaded
-  systemd:
-    name: apparmor
-    state: restarted
-    enabled: true
+## Additional tasks ############################################################
+
+- include_tasks: apparmor.yml
+  when: configure_apparmor
+
+## Finalize steps ##############################################################
 
 - name: Ensure php-fpm is enabled
   systemd:

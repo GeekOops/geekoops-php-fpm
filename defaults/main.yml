@@ -3,6 +3,7 @@
 
 configure_php_ini: true
 configure_php_fpm: true
+configure_apparmor: false
 enable_php_fpm: true
 
 # The pool to configure

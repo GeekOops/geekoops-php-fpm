@@ -17,6 +17,7 @@ Due to the very different php configuration on Debian/Ubuntu I'm not planning to
 |-------|-------------|---------|
 | `configure_php_ini` | Configrue the `php.ini` file | `true` |
 | `configure_php_fpm` | Configure php-fpm configuration files  | `true` |
+| `configure_apparmor` | Configure apparmor configuration files  | `false` |
 | `enable_php_fpm` | Enable `php-fpm` service | `true` |
 | `apcu_enable` | Enable the [APCu](https://www.php.net/manual/en/book.apcu.php) cache | `false` |
 | `apcu_shm_size` | APCu cache size | `32M` |
